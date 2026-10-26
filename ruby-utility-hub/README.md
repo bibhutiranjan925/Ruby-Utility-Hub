@@ -78,7 +78,7 @@ gem install webrick
 ruby dev_server.rb
 ```
 
-Then open **http://localhost:3000**. Stop the server with `Ctrl + C`.
+Then open **https://ruby-utility-hub.vercel.app/**. Stop the server with `Ctrl + C`.
 
 > Using Bundler instead? `bundle install` then `ruby dev_server.rb` also works —
 > `Gemfile.lock` is git-ignored on purpose so the lockfile never blocks a deploy.
@@ -93,7 +93,7 @@ the same thing** on your machine, so what you test locally is what Vercel runs.
 
 ## 3. Test each of the eight tools
 
-Open http://localhost:3000 and use the cards, or check the JSON directly.
+Open https://ruby-utility-hub.vercel.app/ and use the cards, or check the JSON directly.
 
 | Tool | What to type | Expected result |
 |------|--------------|-----------------|
