@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruby Utility Hub — Eight useful tools, powered by Ruby</title>
+  <meta name="description" content="Ruby Utility Hub is a developer-tool dashboard with eight small utilities — string repeater, circle calculator, name reverser, file extension extractor, greatest of three, odd numbers, number checker and temperature checker — powered by a Ruby API.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237c5cff' d='M6 3h12l3 6-9 12L3 9z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="#top" aria-label="Ruby Utility Hub home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <path d="M6 3h12l3 6-9 12L3 9z"></path>
+            <path d="M3 9h18"></path>
+            <path d="M12 21 9 9l3-6 3 6-3 12z"></path>
+          </svg>
+        </span>
+        <span class="brand__text">Ruby <span>Utility Hub</span></span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#tools">Tools</a>
+        <a href="#how">How it works</a>
+        <a href="#run">Run locally</a>
+      </nav>
+
+      <a class="btn btn--ghost nav__cta" href="#tools">Open tools</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="pill">
+            <span class="pill__dot" aria-hidden="true"></span>
+            Browser → Ruby API → JSON
+          </span>
+
+          <h1>Ruby Utility <span class="grad">Hub</span></h1>
+          <p class="hero__subtitle">Eight useful tools, powered by Ruby</p>
+
+          <p class="hero__text">
+            A developer-tool dashboard that puts eight small utilities in one place.
+            Every card sends your input to a Ruby function, and the answer you see
+            comes back from that function as JSON — no frameworks, no databases,
+            no API keys.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#tools">Explore the tools</a>
+            <a class="btn btn--outline" href="#how">How it works</a>
+          </div>
+
+          <dl class="hero__stats">
+            <div><dt>Tools</dt><dd>8</dd></div>
+            <div><dt>Ruby functions</dt><dd>8</dd></div>
+            <div><dt>Dependencies</dt><dd>0</dd></div>
+          </dl>
+
+          <p class="api-status" id="api-status" data-state="checking" role="status">
+            Checking the Ruby API…
+          </p>
+        </div>
+
+        <div class="hero__visual">
+          <div class="terminal" aria-hidden="true">
+            <div class="terminal__bar">
+              <span></span><span></span><span></span>
+              <p>ruby_utility_hub.rb — the original console version</p>
+            </div>
+            <pre class="terminal__body"><span class="t-prompt">$</span> ruby ruby_utility_hub.rb
+
+<span class="t-title">                 RUBY UTILITY HUB</span>
+<span class="t-dim">==============================================================</span>
+   1. String Repeater
+   2. Circle Calculator
+   3. Name Reverser
+   ...
+   9. Exit
+<span class="t-dim">==============================================================</span>
+<span class="t-prompt">Select an option (1-9):</span> 1
+
+  Original text : Ruby
+  Repeat count   : 3
+  Result         : RubyRubyRuby
+
+<span class="t-prompt">Press Enter to return to the main menu...</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TOOLS ==================== -->
+    <section class="section" id="tools">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">Toolkit</span>
+          <h2>Eight tools, one dashboard</h2>
+          <p>Fill in a card, press the button, and the Ruby backend answers. Invalid
+             input is rejected with a clear message instead of a wrong result.</p>
+        </header>
+
+        <div class="grid">
+
+          <!-- 01 String Repeater -->
+          <article class="tool-card" id="string-repeater">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="17 1 21 5 17 9"></polyline>
+                  <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                  <polyline points="7 23 3 19 7 15"></polyline>
+                  <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">01</p>
+                <h3>String Repeater</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Repeats text with Ruby's <code>*</code> operator.
+               Zero and an empty string are allowed.</p>
+
+            <form class="tool-form" data-endpoint="/api/string_repeater" novalidate>
+              <div class="field">
+                <label for="sr-text">Text</label>
+                <input id="sr-text" name="text" type="text" maxlength="100"
+                       placeholder="Ruby" autocomplete="off">
+                <small class="field__hint">Optional — leave empty to repeat nothing.</small>
+              </div>
+              <div class="field">
+                <label for="sr-count">Repeat count</label>
+                <input id="sr-count" name="count" type="text" inputmode="numeric"
+                       maxlength="20" placeholder="3" autocomplete="off" required>
+                <small class="field__hint">Whole number from 0 to 1000.</small>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Repeat</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 02 Circle Calculator -->
+          <article class="tool-card" id="circle-calculator">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <line x1="12" y1="12" x2="18.4" y2="5.6"></line>
+                  <circle cx="12" cy="12" r="1.2"></circle>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">02</p>
+                <h3>Circle Calculator</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Perimeter and area from a radius, using
+               <code>2 * Math::PI * r</code> and <code>Math::PI * r²</code>.</p>
+
+            <form class="tool-form" data-endpoint="/api/circle_calculator" novalidate>
+              <div class="field">
+                <label for="cc-radius">Radius</label>
+                <input id="cc-radius" name="radius" type="text" inputmode="decimal"
+                       maxlength="20" placeholder="5" autocomplete="off" required>
+                <small class="field__hint">0 or more. Decimals welcome (try 2.5).</small>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Calculate</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 03 Name Reverser -->
+          <article class="tool-card" id="name-reverser">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">03</p>
+                <h3>Name Reverser</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Puts the last name before the first name.
+               Blank or space-only names are refused.</p>
+
+            <form class="tool-form" data-endpoint="/api/name_reverser" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="nr-first">First name</label>
+                  <input id="nr-first" name="first" type="text" maxlength="60"
+                         placeholder="Arun" autocomplete="off" required>
+                </div>
+                <div class="field">
+                  <label for="nr-last">Last name</label>
+                  <input id="nr-last" name="last" type="text" maxlength="60"
+                         placeholder="Kumar" autocomplete="off" required>
+                </div>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Reverse name</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 04 File Extension Extractor -->
+          <article class="tool-card" id="file-extension">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 3 14 8 19 8"></polyline>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">04</p>
+                <h3>File Extension Extractor</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Uses Ruby's <code>File.extname</code>. Handles
+               <code>.tar.gz</code>, hidden files and trailing dots.</p>
+
+            <form class="tool-form" data-endpoint="/api/file_extension" novalidate>
+              <div class="field">
+                <label for="fe-name">Filename</label>
+                <input id="fe-name" name="filename" type="text" maxlength="255"
+                       placeholder="archive.tar.gz" autocomplete="off">
+                <small class="field__hint">Nothing is uploaded — Ruby only reads the name.</small>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Extract extension</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 05 Greatest of Three Numbers -->
+          <article class="tool-card" id="greatest-of-three">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="6" y1="20" x2="6" y2="13"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="18" y1="20" x2="18" y2="9"></line>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">05</p>
+                <h3>Greatest of Three Numbers</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Compares three numbers with <code>Array#max</code>.
+               Negatives, decimals and equal values all work.</p>
+
+            <form class="tool-form" data-endpoint="/api/greatest_of_three" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="gt-a">First number</label>
+                  <input id="gt-a" name="a" type="text" inputmode="decimal" maxlength="20"
+                         placeholder="-5" autocomplete="off" required>
+                </div>
+                <div class="field">
+                  <label for="gt-b">Second number</label>
+                  <input id="gt-b" name="b" type="text" inputmode="decimal" maxlength="20"
+                         placeholder="-12" autocomplete="off" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="gt-c">Third number</label>
+                <input id="gt-c" name="c" type="text" inputmode="decimal" maxlength="20"
+                       placeholder="-3" autocomplete="off" required>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Find greatest</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 06 Odd Numbers -->
+          <article class="tool-card" id="odd-numbers">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="4" y1="9" x2="20" y2="9"></line>
+                  <line x1="4" y1="15" x2="20" y2="15"></line>
+                  <line x1="10" y1="3" x2="8" y2="21"></line>
+                  <line x1="16" y1="3" x2="14" y2="21"></line>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">06</p>
+                <h3>Odd Numbers</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">Counts down with <code>downto</code> and prints only
+               odd values — 9, 7, 5, 3, 1 by default.</p>
+
+            <form class="tool-form" data-endpoint="/api/odd_numbers" novalidate>
+              <div class="field">
+                <label for="on-limit">Upper limit</label>
+                <input id="on-limit" name="limit" type="text" inputmode="numeric" maxlength="20"
+                       placeholder="10" autocomplete="off">
+                <small class="field__hint">Leave empty for the original exercise (10 down to 1).</small>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Generate numbers</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 07 Number Checker -->
+          <article class="tool-card" id="number-checker">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <polyline points="16.5 9 11 14.5 7.5 11"></polyline>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">07</p>
+                <h3>Number Checker</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">If either integer is 20 the answer is
+               <code>true</code>; otherwise it returns their sum.</p>
+
+            <form class="tool-form" data-endpoint="/api/number_checker" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="nc-a">First integer</label>
+                  <input id="nc-a" name="a" type="text" inputmode="numeric" maxlength="20"
+                         placeholder="20" autocomplete="off" required>
+                </div>
+                <div class="field">
+                  <label for="nc-b">Second integer</label>
+                  <input id="nc-b" name="b" type="text" inputmode="numeric" maxlength="20"
+                         placeholder="5" autocomplete="off" required>
+                </div>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Check numbers</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+          <!-- 08 Temperature Checker -->
+          <article class="tool-card" id="temperature-checker">
+            <header class="tool-card__head">
+              <span class="tool-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 14.76V5a2 2 0 0 0-4 0v9.76a4.5 4.5 0 1 0 4 0z"></path>
+                </svg>
+              </span>
+              <div class="tool-card__title">
+                <p class="tool-card__number">08</p>
+                <h3>Temperature Checker</h3>
+              </div>
+            </header>
+            <p class="tool-card__desc">True when one temperature is below 0 and the other
+               is above 100 — both arrangements are checked.</p>
+
+            <form class="tool-form" data-endpoint="/api/temperature_checker" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="tc-a">First temperature</label>
+                  <input id="tc-a" name="a" type="text" inputmode="decimal" maxlength="20"
+                         placeholder="-10" autocomplete="off" required>
+                </div>
+                <div class="field">
+                  <label for="tc-b">Second temperature</label>
+                  <input id="tc-b" name="b" type="text" inputmode="decimal" maxlength="20"
+                         placeholder="150" autocomplete="off" required>
+                </div>
+              </div>
+              <button class="btn btn--primary btn--block" type="submit">Check condition</button>
+            </form>
+
+            <div class="tool-status">
+              <div class="tool-loading" hidden><span class="spinner" aria-hidden="true"></span> Sending to Ruby…</div>
+              <div class="tool-output" hidden></div>
+              <p class="tool-error" role="alert" hidden></p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="section section--alt" id="how">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">How it works</span>
+          <h2>Your input takes a round trip to Ruby</h2>
+          <p>No calculations are faked in the browser — the maths, the validation and
+             the wording all come from the Ruby backend.</p>
+        </header>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">1</span>
+            <h3>You type in the browser</h3>
+            <p>HTML builds the cards, CSS styles them responsively, and JavaScript
+               collects the values from the form you pressed.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">2</span>
+            <h3>JavaScript calls a Ruby function</h3>
+            <p>A <code>fetch</code> request goes to <code>/api/…</code>, where Vercel
+               runs the matching <code>.rb</code> file as a serverless function.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">3</span>
+            <h3>Ruby answers with JSON</h3>
+            <p>The function validates the input, applies the original formula and
+               returns JSON, which JavaScript renders into the result panel.</p>
+          </li>
+        </ol>
+
+        <ul class="badges" aria-label="Technology stack">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript (ES2020)</li>
+          <li>Ruby 3.3</li>
+          <li>Vercel Functions</li>
+          <li>No frameworks</li>
+          <li>No database</li>
+          <li>No API keys</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==================== RUN LOCALLY ==================== -->
+    <section class="section" id="run">
+      <div class="container run">
+        <div class="run__copy">
+          <span class="section__eyebrow">Run locally</span>
+          <h2>Three commands and it is up</h2>
+          <p>The same Ruby handlers run on your machine, so testing here is a faithful
+             preview of the deployed site. You need Ruby 3.1 or newer.</p>
+          <ol class="run__list">
+            <li>Install the one gem: <code>gem install webrick</code></li>
+            <li>Start the server: <code>ruby dev_server.rb</code></li>
+            <li>Open <code>http://localhost:3000</code> and use the cards.</li>
+          </ol>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__bar">
+            <p>terminal</p>
+            <button class="btn-copy" type="button" data-copy="gem install webrick&#10;ruby dev_server.rb">Copy</button>
+          </div>
+<pre class="code-block__body"><span class="c-comment"># 1. install the only gem this project uses</span>
+<span class="c-prompt">$</span> gem install webrick
+
+<span class="c-comment"># 2. start the local Ruby server (project root)</span>
+<span class="c-prompt">$</span> ruby dev_server.rb
+
+<span class="c-comment"># 3. open the dashboard</span>
+<span class="c-prompt">$</span> <span class="c-url">http://localhost:3000</span></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="brand__mark brand__mark--sm" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <path d="M6 3h12l3 6-9 12L3 9z"></path>
+            <path d="M3 9h18"></path>
+            <path d="M12 21 9 9l3-6 3 6-3 12z"></path>
+          </svg>
+        </span>
+        <div>
+          <p class="footer__title">Ruby Utility Hub</p>
+          <p class="footer__tag">Eight useful tools, powered by Ruby.</p>
+        </div>
+      </div>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#tools">Tools</a>
+        <a href="#how">How it works</a>
+        <a href="#run">Run locally</a>
+        <a href="#top">Back to top</a>
+      </nav>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>This project was developed for the SDC Lab.</p>
+      <p>Built with HTML, CSS, JavaScript and Ruby — no frameworks, no database, no API keys.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    webrick (1.9.2)
+
+PLATFORMS
+  x64-mingw-ucrt
+
+DEPENDENCIES
+  webrick (~> 1.8)
+
+BUNDLED WITH
+   2.5.22

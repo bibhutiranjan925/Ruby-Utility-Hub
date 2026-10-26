@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+# WEBrick is the only gem this project needs.
+#
+# * Locally it powers dev_server.rb (`bundle install`, then `ruby dev_server.rb`).
+# * On Vercel the Ruby runtime already ships WEBrick, so this entry simply
+#   documents the dependency - no API keys, no secrets, no other gems.
+#
+# No `ruby "x.y.z"` line is written on purpose: Vercel then uses its default
+# Ruby (3.3.x), which matches the version used to develop this project.
+gem "webrick", "~> 1.8"
